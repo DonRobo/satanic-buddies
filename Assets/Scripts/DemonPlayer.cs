@@ -68,19 +68,19 @@ public class DemonPlayer : MonoBehaviour
 
     private void addPressedButton()
     {
-        if (Input.GetKeyDown("joystick 2 button 0"))
+        if (Input.GetKeyDown("joystick 2 button 0") || Input.GetButtonDown("DemonA") )
         {
             buttonsPressed.AddLast('a');
         }
-        if (Input.GetKeyDown("joystick 2 button 1"))
+        if (Input.GetKeyDown("joystick 2 button 1") || Input.GetButtonDown("DemonB"))
         {
             buttonsPressed.AddLast('b');
         }
-        if (Input.GetKeyDown("joystick 2 button 2"))
+        if (Input.GetKeyDown("joystick 2 button 2") || Input.GetButtonDown("DemonX"))
         {
             buttonsPressed.AddLast('x');
         }
-        if (Input.GetKeyDown("joystick 2 button 3"))
+        if (Input.GetKeyDown("joystick 2 button 3") || Input.GetButtonDown("DemonY"))
         {
             buttonsPressed.AddLast('y');
         }
