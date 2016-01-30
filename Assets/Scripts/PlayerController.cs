@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
     enum AnimationState
     {
         IDLE = 0,
-        WALK
+        WALK  = 1
     }
 
     public float walkSpeed = 300.0f;
@@ -20,12 +20,16 @@ public class PlayerController : MonoBehaviour
 
     public float gravity = 0.0001F;
 
+    public Vector3 aimDirection;
+
     private Vector3 moveDirection = Vector3.zero;
     private Vector3 initialPosition;
     private CharacterController characterController;
     private Animator animator;
     private GameObject spriteView;
-    public Vector3 aimDirection;
+    private AnimationState currentAnimationState = AnimationState.IDLE;
+
+    private const float EPSILON = 0.001f;
 
     void Start()
     {
@@ -53,13 +57,17 @@ public class PlayerController : MonoBehaviour
 
         moveDirection.y -= gravity;
 
-        if (Mathf.Abs(moveDirection.x) > 0 || Mathf.Abs(moveDirection.z) > 0)
+        if (currentAnimationState == AnimationState.IDLE && 
+            (Mathf.Abs(moveDirection.x) > EPSILON || Mathf.Abs(moveDirection.z) > EPSILON))
         {
             animator.SetInteger("state", (int)AnimationState.WALK);
+            currentAnimationState = AnimationState.WALK;
         }
-        else
+        else if (currentAnimationState == AnimationState.WALK)
         {
+            animator.speed = 1;
             animator.SetInteger("state", (int)AnimationState.IDLE);
+            currentAnimationState = AnimationState.IDLE;
         }
         if (moveDirection.x < 0 && spriteView.transform.localScale.x > 0)
         {
