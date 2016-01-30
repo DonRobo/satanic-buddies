@@ -4,6 +4,7 @@ using System.Collections;
 public class Projectile : MonoBehaviour
 {
 
+    public float damage = 10;
     public float speed = 30;
     public Vector3 direction;
 
@@ -21,9 +22,13 @@ public class Projectile : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<Rigidbody>() != null)
+        if (other.GetComponent<Enemy>() != null && other.GetComponent<Rigidbody>() != null)
         {
-            other.GetComponent<Rigidbody>().AddForce(direction.normalized * 3);
+            other.GetComponent<Enemy>().Damage(damage);
+            other.GetComponent<Rigidbody>().AddForce(direction.normalized * 200);
+        }
+        if (other.GetComponent<PlayerController>() == null)
+        {
             GameObject.Destroy(this.gameObject);
         }
     }
