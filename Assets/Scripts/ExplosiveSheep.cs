@@ -9,7 +9,7 @@ public class ExplosiveSheep : MonoBehaviour
     public float fuse = 1;
     private bool activated = false;
     public float damage = 90;
-    public float force = 1;
+    public float force = 1000;
     public float range = 8;
 
     // Use this for initialization
@@ -27,18 +27,10 @@ public class ExplosiveSheep : MonoBehaviour
 
             if (fuse < 0)
             {
-                IList<Enemy> hitEnemies = new List<Enemy>();
-                Enemy[] enemies = FindObjectsOfType<Enemy>();
-                foreach (Enemy enemy in enemies)
-                {
-                    Vector3 dist = (enemy.transform.position - transform.position);
-                    if (dist.sqrMagnitude < range * range)
-                    {
-                        enemy.Damage(damage);
-                        enemy.GetComponent<Rigidbody>().AddExplosionForce(force, transform.position, range);
-                    }
-                }
-                GameObject.Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+                GameObject explosion = GameObject.Instantiate(explosionPrefab, transform.position, Quaternion.identity) as GameObject;
+                explosion.GetComponent<Explosion>().force = force;
+                explosion.GetComponent<Explosion>().range = range;
+                explosion.GetComponent<Explosion>().damage = damage;
                 Destroy(this.gameObject);
             }
         }
