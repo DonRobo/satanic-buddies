@@ -38,7 +38,7 @@ public class Levelspawner : MonoBehaviour
         float minX = lastTile * tileSize;
         float minY = -10;
         float maxX = minX + tileSize;
-        float maxY = 10;
+        float maxY = 15;
 
         for (int i = 0; i < 30; i++)
         {
