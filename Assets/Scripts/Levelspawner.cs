@@ -28,7 +28,9 @@ public class Levelspawner : MonoBehaviour
         {
             GameObject.Instantiate(levelPlane, new Vector3(lastTile * tileSize + tileSize / 2, 0, 0), Quaternion.identity);
             AddRandomObstacles();
-            player.transform.position = new Vector3(player.transform.position.x, 0, player.transform.position.z);
+            if (player.transform.position.y < 0) {
+                player.transform.position = new Vector3(player.transform.position.x, 0, player.transform.position.z);
+            }
             lastTile++;
         }
     }
