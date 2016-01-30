@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     private CharacterController characterController;
     private Animator animator;
     private GameObject spriteView;
+    public Vector3 aimDirection;
 
     void Start()
     {
@@ -70,5 +71,7 @@ public class PlayerController : MonoBehaviour
         }
 
         characterController.Move(moveDirection);
+
+        aimDirection = new Vector3(moveDirection.x, 0, moveDirection.z).normalized;
     }
 }
