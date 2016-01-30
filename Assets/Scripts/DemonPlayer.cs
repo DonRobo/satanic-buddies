@@ -8,6 +8,7 @@ public class DemonPlayer : MonoBehaviour
 
     public ExplosiveSheep explosiveSheepPrefab;
     public GameObject fireballPrefab;
+	public GameObject cometPrefab;
 
     private PlayerController playerController;
 
@@ -35,6 +36,11 @@ public class DemonPlayer : MonoBehaviour
             GameObject fireball = GameObject.Instantiate(fireballPrefab, transform.position, Quaternion.identity) as GameObject;
             fireball.GetComponent<Fireball>().direction = playerController.aimDirection;
         }
+		if (isComboPressed("xx")) //comet
+		{
+			GameObject.Instantiate(cometPrefab, new Vector3(playerController.gameObject.transform.position.x, 20, 
+				playerController.gameObject.transform.position.z), Quaternion.identity);
+		}
 
     }
 
@@ -72,6 +78,22 @@ public class DemonPlayer : MonoBehaviour
         {
             buttonsPressed.AddLast('y');
         }
+		if (Input.GetKeyDown("a"))
+		{
+			buttonsPressed.AddLast('a');
+		}
+		if (Input.GetKeyDown("b"))
+		{
+			buttonsPressed.AddLast('b');
+		}
+		if (Input.GetKeyDown("x"))
+		{
+			buttonsPressed.AddLast('x');
+		}
+		if (Input.GetKeyDown("y"))
+		{
+			buttonsPressed.AddLast('y');
+		}
 
         while (buttonsPressed.Count > 100)
         {
