@@ -4,6 +4,8 @@ using System.Collections;
 public class Projectile : MonoBehaviour
 {
 
+    public float lifetime = 2;
+    private float age = 0;
     public float damage = 10;
     public float speed = 30;
     public Vector3 direction;
@@ -17,6 +19,11 @@ public class Projectile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        age += Time.deltaTime;
+        if (age > lifetime)
+        {
+            Destroy(this.gameObject);
+        }
         transform.Translate(direction.normalized * speed * Time.deltaTime);
     }
 
