@@ -89,7 +89,7 @@ public class PlayerController : MonoBehaviour
             aimDirection = new Vector3(moveDirection.x, 0, moveDirection.z).normalized;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetButtonDown("PlayerFire"))
         {
             GameObject proj = GameObject.Instantiate(projectilePrefab, transform.position, Quaternion.identity) as GameObject;
             proj.GetComponent<Projectile>().direction = aimDirection;
