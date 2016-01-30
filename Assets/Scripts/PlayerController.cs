@@ -22,6 +22,8 @@ public class PlayerController : MonoBehaviour
 
     public Vector3 aimDirection;
 
+    public GameObject projectilePrefab;
+
     private Vector3 moveDirection = Vector3.zero;
     private Vector3 initialPosition;
     private CharacterController characterController;
@@ -79,6 +81,12 @@ public class PlayerController : MonoBehaviour
         if (Mathf.Abs(Input.GetAxis("Horizontal")) > EPSILON || Mathf.Abs(Input.GetAxis("Vertical")) > EPSILON)
         {
             aimDirection = new Vector3(moveDirection.x, 0, moveDirection.z).normalized;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            GameObject proj = GameObject.Instantiate(projectilePrefab, transform.position, Quaternion.identity) as GameObject;
+            proj.GetComponent<Projectile>().direction = aimDirection;
         }
     }
 
