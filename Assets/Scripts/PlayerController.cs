@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
     enum AnimationState
     {
         IDLE = 0,
-        WALK
+        WALK  = 1
     }
 
     public float walkSpeed = 300.0f;
@@ -20,12 +20,15 @@ public class PlayerController : MonoBehaviour
 
     public float gravity = 0.0001F;
 
+    public Vector3 aimDirection;
+
     private Vector3 moveDirection = Vector3.zero;
     private Vector3 initialPosition;
     private CharacterController characterController;
     private Animator animator;
     private GameObject spriteView;
-    public Vector3 aimDirection;
+    private AnimationState currentAnimationState = AnimationState.IDLE;
+    private const float EPSILON = 0.001f;
 
     void Start()
     {
@@ -53,13 +56,14 @@ public class PlayerController : MonoBehaviour
 
         moveDirection.y -= gravity;
 
-        if (Mathf.Abs(moveDirection.x) > 0 || Mathf.Abs(moveDirection.z) > 0)
+        if (Mathf.Abs(moveDirection.x) > EPSILON || Mathf.Abs(moveDirection.z) > EPSILON)
         {
-            animator.SetInteger("state", (int)AnimationState.WALK);
+            setState(AnimationState.WALK);
         }
         else
         {
-            animator.SetInteger("state", (int)AnimationState.IDLE);
+            animator.speed = 100;
+            setState(AnimationState.IDLE);
         }
         if (moveDirection.x < 0 && spriteView.transform.localScale.x > 0)
         {
@@ -73,5 +77,16 @@ public class PlayerController : MonoBehaviour
         characterController.Move(moveDirection);
 
         aimDirection = new Vector3(moveDirection.x, 0, moveDirection.z).normalized;
+    }
+
+    private void setState(AnimationState state)
+    {
+        if (this.currentAnimationState == state)
+            return;
+
+        //Debug.Log("Setting state to " + state.ToString());
+        animator.SetInteger("state", (int)state);
+        currentAnimationState = state;
+
     }
 }
