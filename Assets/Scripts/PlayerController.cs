@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -9,6 +10,10 @@ public class PlayerController : MonoBehaviour
         WALK = 1
     }
 
+    public Image healthbar;
+
+    public float maxHealth = 200;
+    private float health;
     public float walkSpeed = 300.0f;
 
     public float animationSpeedFactor = 30.0f;
@@ -38,6 +43,7 @@ public class PlayerController : MonoBehaviour
         characterController = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
         spriteView = transform.FindChild("PlayerSpriteView").gameObject;
+        health = maxHealth;
     }
 
     void Update()
@@ -99,5 +105,15 @@ public class PlayerController : MonoBehaviour
         animator.SetInteger("state", (int)state);
         currentAnimationState = state;
 
+    }
+
+    public void Damage(float damage)
+    {
+        health -= damage;
+        healthbar.rectTransform.anchorMax = new Vector2(health / maxHealth, 1);
+        if (health <= 0)
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+        }
     }
 }

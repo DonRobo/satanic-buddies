@@ -23,10 +23,19 @@ public class Explosion : MonoBehaviour {
                 enemy.GetComponent<Rigidbody>().AddExplosionForce(force, transform.position, range);
             }
         }
+        PlayerController[] players = FindObjectsOfType<PlayerController>();
+        foreach (PlayerController player in players)
+        {
+            Vector3 dist = (player.transform.position - transform.position);
+            if (dist.sqrMagnitude < range * range)
+            {
+                player.Damage(damage);
+            }
+        }
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update () {
         age += Time.deltaTime;
         if (age > lifetime)
         {
