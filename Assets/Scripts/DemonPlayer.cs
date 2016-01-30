@@ -8,6 +8,7 @@ public class DemonPlayer : MonoBehaviour
 
     public ExplosiveSheep explosiveSheepPrefab;
     public GameObject fireballPrefab;
+    public GameObject decoyPrefab;
 
     private PlayerController playerController;
 
@@ -35,7 +36,12 @@ public class DemonPlayer : MonoBehaviour
             GameObject fireball = GameObject.Instantiate(fireballPrefab, transform.position, Quaternion.identity) as GameObject;
             fireball.GetComponent<Fireball>().direction = playerController.aimDirection;
         }
-
+        if (isComboPressed("yy")) //Decoy
+        {
+            GameObject.Instantiate(decoyPrefab,
+                new Vector3(playerController.gameObject.transform.position.x, 0, playerController.gameObject.transform.position.z) + (playerController.aimDirection) * 3
+                , Quaternion.identity);
+        }
     }
 
     private bool isComboPressed(string combo)

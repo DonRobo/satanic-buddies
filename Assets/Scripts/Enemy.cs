@@ -21,14 +21,32 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         Vector3 distance = (player.transform.position - transform.position);
-        float speedModifier = distance.sqrMagnitude > 100 ? 1.1f : 1f;
-        float step = Time.deltaTime * speed * speedModifier;
-        float oldY = transform.position.y;
-        Vector3 movement = distance.normalized * step;
-        transform.Translate(movement);
-        //  transform.position= Vector3.MoveTowards(transform.position, player.transform.position, step);
-        // transform.position = new Vector3(transform.position.x, oldY, transform.position.z);
-        //this.GetComponent<CharacterController>().Move(new Vector3(0.01f, 0, 0.01f));
+
+        Decoy[] decoys = GameObject.FindObjectsOfType<Decoy>();
+        if (decoys.Length > 0)
+        {
+            Vector3 closestDecoyDistance=decoys[0].gameObject.transform.position - transform.position;
+            foreach(Decoy decoy in decoys)
+            {
+                if ((decoy.gameObject.transform.position - transform.position).sqrMagnitude < closestDecoyDistance.sqrMagnitude)
+                {
+                    closestDecoyDistance = decoy.gameObject.transform.position - transform.position;
+                }
+            }
+
+            distance = closestDecoyDistance;
+        }
+
+        if (distance.sqrMagnitude > 8) { 
+            float speedModifier = distance.sqrMagnitude > 100 ? 1.1f : 1f;
+            float step = Time.deltaTime * speed * speedModifier;
+            float oldY = transform.position.y;
+            Vector3 movement = distance.normalized * step;
+            transform.Translate(movement);
+            //  transform.position= Vector3.MoveTowards(transform.position, player.transform.position, step);
+            // transform.position = new Vector3(transform.position.x, oldY, transform.position.z);
+            //this.GetComponent<CharacterController>().Move(new Vector3(0.01f, 0, 0.01f));
+        }
     }
 
     public void Damage(float damage)
