@@ -3,7 +3,8 @@ using System.Collections;
 
 public class Enemy : MonoBehaviour {
 
-    public GameObject player;
+    private GameObject player;
+    private float health = 100;
 
     // Use this for initialization
     void Start () {
@@ -23,4 +24,13 @@ public class Enemy : MonoBehaviour {
        // transform.position = new Vector3(transform.position.x, oldY, transform.position.z);
         //this.GetComponent<CharacterController>().Move(new Vector3(0.01f, 0, 0.01f));
 	}
+
+    public void Damage(float damage)
+    {
+        health -= damage;
+        if (health < 0)
+        {
+            Destroy(this.gameObject);
+        }
+    }
 }

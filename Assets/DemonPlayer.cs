@@ -6,7 +6,9 @@ using System.Collections.Generic;
 public class DemonPlayer : MonoBehaviour
 {
 
-    public PlayerController playerController;
+    public ExplosiveSheep explosiveSheepPrefab;
+
+    private PlayerController playerController;
 
     private LinkedList<char> buttonsPressed = new LinkedList<char>();
 
@@ -21,9 +23,11 @@ public class DemonPlayer : MonoBehaviour
     {
         addPressedButton();
 
-        if (isComboPressed("aab"))
+        if (isComboPressed("aa")) //Explosive sheep
         {
-            Debug.Log("aab");
+            GameObject.Instantiate(explosiveSheepPrefab, 
+                new Vector3(playerController.gameObject.transform.position.x, 0, playerController.gameObject.transform.position.z)
+                , Quaternion.identity);
         }
         if (isComboPressed("bba"))
         {
