@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
     enum AnimationState
     {
         IDLE = 0,
-        WALK  = 1
+        WALK = 1
     }
 
     public float walkSpeed = 300.0f;
@@ -76,7 +76,10 @@ public class PlayerController : MonoBehaviour
 
         characterController.Move(moveDirection);
 
-        aimDirection = new Vector3(moveDirection.x, 0, moveDirection.z).normalized;
+        if (Mathf.Abs(Input.GetAxis("Horizontal")) > EPSILON || Mathf.Abs(Input.GetAxis("Vertical")) > EPSILON)
+        {
+            aimDirection = new Vector3(moveDirection.x, 0, moveDirection.z).normalized;
+        }
     }
 
     private void setState(AnimationState state)

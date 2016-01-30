@@ -25,8 +25,8 @@ public class DemonPlayer : MonoBehaviour
 
         if (isComboPressed("aa")) //Explosive sheep
         {
-            GameObject.Instantiate(explosiveSheepPrefab, 
-                new Vector3(playerController.gameObject.transform.position.x, 0, playerController.gameObject.transform.position.z)
+            GameObject.Instantiate(explosiveSheepPrefab,
+                new Vector3(playerController.gameObject.transform.position.x, 0, playerController.gameObject.transform.position.z) + (playerController.aimDirection) * 3
                 , Quaternion.identity);
         }
         if (isComboPressed("bba"))
