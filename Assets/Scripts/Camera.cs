@@ -11,11 +11,12 @@ public class Camera : MonoBehaviour {
         if (target == null) {
             target = GameObject.Find("Player");
         }
-        transform.position = new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z + offset);
+        transform.position = new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z - offset);
+        
     }
 
     // Update is called once per frame
     void Update () {
         transform.position = new Vector3(target.transform.position.x, transform.position.y, transform.position.z);
-	}
+    }
 }
