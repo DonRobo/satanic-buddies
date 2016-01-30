@@ -1,10 +1,14 @@
 fileFormatVersion: 2
 guid: 495edadbfc1b65b40917eddb86000263
-timeCreated: 1454150372
+timeCreated: 1454175679
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - explosiveSheepPrefab: {instanceID: 0}
+  - fireballPrefab: {fileID: 146628, guid: d0facfd0e86ccf546a7d542d7c08378b, type: 2}
+  - cometPrefab: {fileID: 179016, guid: 3fc1ab2d9dca1c342b14e60d684bbf67, type: 2}
+  - decoyPrefab: {fileID: 138402, guid: 7bfe098bd27e0c945ab4275a9ea4834e, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

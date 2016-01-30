@@ -12,18 +12,40 @@ public class ExplosiveSheep : MonoBehaviour
     public float force = 1000;
     public float range = 8;
 
+    public float movementSpeed = 5.0f;
+    public int changeFrame = 50;
+
+    private Vector3 movementDirection;
+    private int time;
+
     // Use this for initialization
     void Start()
     {
-
+        time = Time.frameCount;
+        
+        float randomAngle = UnityEngine.Random.Range(0.0f, 2 * Mathf.PI);
+        movementDirection = new Vector3(Mathf.Sin(randomAngle), 0.0f, Mathf.Cos(randomAngle));
     }
 
     // Update is called once per frame
     void Update()
     {
+        time++;
+        if (time % changeFrame == 0)
+        {
+            float randomAngle = UnityEngine.Random.Range(0.0f, 2 * Mathf.PI);
+            movementDirection = new Vector3(Mathf.Sin(randomAngle), 0.0f, Mathf.Cos(randomAngle)) ;
+        }                                                                                              
+
+
+        transform.Translate(movementDirection * Time.deltaTime * movementSpeed) ;
+
         if (activated)
         {
             fuse -= Time.deltaTime;
+
+            
+
 
             if (fuse < 0)
             {
