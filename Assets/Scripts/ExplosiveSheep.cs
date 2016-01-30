@@ -40,12 +40,10 @@ public class ExplosiveSheep : MonoBehaviour
 
         transform.Translate(movementDirection * Time.deltaTime * movementSpeed) ;
 
-        if (activated)
+        if (activated && fuse > 0)
         {
+            GetComponent<AudioSource>().Play();
             fuse -= Time.deltaTime;
-
-            
-
 
             if (fuse < 0)
             {
@@ -53,11 +51,16 @@ public class ExplosiveSheep : MonoBehaviour
                 explosion.GetComponent<Explosion>().force = force;
                 explosion.GetComponent<Explosion>().range = range;
                 explosion.GetComponent<Explosion>().damage = damage;
-                Destroy(this.gameObject);
+
+                GetComponentInChildren<SpriteRenderer>().enabled = false;
+
+                Destroy(this.gameObject, 1);
             }
         }
-        else {
+        else
+        {
             Enemy[] enemies = FindObjectsOfType<Enemy>();
+
             foreach (Enemy enemy in enemies)
             {
                 if ((enemy.transform.position - transform.position).sqrMagnitude < range * range)
