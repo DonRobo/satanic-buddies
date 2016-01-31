@@ -6,6 +6,12 @@ using System.Collections.Generic;
 public class DemonPlayer : MonoBehaviour
 {
 
+    //private bool lastUp;
+    // private bool lastDown;
+    // private bool lastLeft;
+    // private bool lastRight;
+    private Dictionary<string, bool> lastDpad = new Dictionary<string, bool>();
+
     public ExplosiveSheep explosiveSheepPrefab;
     public GameObject fireballPrefab;
     public GameObject cometPrefab;
@@ -85,6 +91,25 @@ public class DemonPlayer : MonoBehaviour
         {
             buttonsPressed.AddLast('y');
         }
+
+        if (GetDpadDown("DemonUp"))
+        {
+            buttonsPressed.AddLast('u');
+        }
+        if (GetDpadDown("DemonDown"))
+        {
+            buttonsPressed.AddLast('d');
+        }
+        if (GetDpadDown("DemonLeft"))
+        {
+            buttonsPressed.AddLast('l');
+        }
+        if (GetDpadDown("DemonRight"))
+        {
+            buttonsPressed.AddLast('r');
+        }
+
+
         if (Input.GetKeyDown("a"))
         {
             buttonsPressed.AddLast('a');
@@ -106,5 +131,28 @@ public class DemonPlayer : MonoBehaviour
         {
             buttonsPressed.RemoveFirst();
         }
+    }
+
+    private bool GetDpadDown(string axis)
+    {
+        bool last = false;
+        if (lastDpad.ContainsKey(axis))
+        {
+            last = lastDpad[axis];
+        }
+
+        if (Input.GetAxis(axis) > 0.5)
+        {
+            lastDpad[axis] = true;
+            if (!last)
+            {
+                return true;
+            }
+        }
+        else
+        {
+            lastDpad[axis] = false;
+        }
+        return false;
     }
 }
