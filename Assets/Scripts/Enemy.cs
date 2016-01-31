@@ -7,6 +7,9 @@ public class Enemy : MonoBehaviour
     public float speed = 10;
     private GameObject player;
     private float health = 100;
+    public float damage = 5;
+    public float attackCooldown = 1;
+    private float attackAge = 0;
 
     // Use this for initialization
     void Start()
@@ -20,6 +23,7 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        attackAge += Time.deltaTime;
         Vector3 distance = (player.transform.position - transform.position);
 
         Decoy[] decoys = GameObject.FindObjectsOfType<Decoy>();
@@ -47,6 +51,17 @@ public class Enemy : MonoBehaviour
             //  transform.position= Vector3.MoveTowards(transform.position, player.transform.position, step);
             // transform.position = new Vector3(transform.position.x, oldY, transform.position.z);
             //this.GetComponent<CharacterController>().Move(new Vector3(0.01f, 0, 0.01f));
+        }
+        else
+        {
+            if (decoys.Length == 0)
+            {
+                if (attackAge > attackCooldown)
+                {
+                    player.GetComponent<PlayerController>().Damage(damage);
+                    attackAge = 0;
+                }
+            }
         }
     }
 

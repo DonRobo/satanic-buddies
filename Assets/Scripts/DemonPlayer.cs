@@ -39,8 +39,9 @@ public class DemonPlayer : MonoBehaviour
         }
         if (isComboPressed("xx")) //comet
         {
-            GameObject.Instantiate(cometPrefab, new Vector3(playerController.gameObject.transform.position.x, 20,
-                playerController.gameObject.transform.position.z), Quaternion.identity);
+            GameObject.Instantiate(cometPrefab,
+                new Vector3(playerController.gameObject.transform.position.x, 10, playerController.gameObject.transform.position.z) + (playerController.aimDirection) * 8
+                , Quaternion.identity);
         }
         if (isComboPressed("yy")) //Decoy
         {
