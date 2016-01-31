@@ -8,7 +8,7 @@ public class DemonPlayer : MonoBehaviour
 
     public ExplosiveSheep explosiveSheepPrefab;
     public GameObject fireballPrefab;
-	public GameObject cometPrefab;
+    public GameObject cometPrefab;
     public GameObject decoyPrefab;
 
     private PlayerController playerController;
@@ -34,14 +34,14 @@ public class DemonPlayer : MonoBehaviour
         }
         if (isComboPressed("bb")) //Fireball
         {
-            GameObject fireball = GameObject.Instantiate(fireballPrefab, transform.position, Quaternion.identity) as GameObject;
+            GameObject fireball = GameObject.Instantiate(fireballPrefab, transform.position + new Vector3(0, 1,1), Quaternion.identity) as GameObject;
             fireball.GetComponent<Fireball>().direction = playerController.aimDirection;
         }
-		if (isComboPressed("xx")) //comet
-		{
-			GameObject.Instantiate(cometPrefab, new Vector3(playerController.gameObject.transform.position.x, 20, 
-				playerController.gameObject.transform.position.z), Quaternion.identity);
-		}
+        if (isComboPressed("xx")) //comet
+        {
+            GameObject.Instantiate(cometPrefab, new Vector3(playerController.gameObject.transform.position.x, 20,
+                playerController.gameObject.transform.position.z), Quaternion.identity);
+        }
         if (isComboPressed("yy")) //Decoy
         {
             GameObject.Instantiate(decoyPrefab,
@@ -68,7 +68,7 @@ public class DemonPlayer : MonoBehaviour
 
     private void addPressedButton()
     {
-        if (Input.GetKeyDown("joystick 2 button 0") || Input.GetButtonDown("DemonA") )
+        if (Input.GetKeyDown("joystick 2 button 0") || Input.GetButtonDown("DemonA"))
         {
             buttonsPressed.AddLast('a');
         }
@@ -84,22 +84,22 @@ public class DemonPlayer : MonoBehaviour
         {
             buttonsPressed.AddLast('y');
         }
-		if (Input.GetKeyDown("a"))
-		{
-			buttonsPressed.AddLast('a');
-		}
-		if (Input.GetKeyDown("b"))
-		{
-			buttonsPressed.AddLast('b');
-		}
-		if (Input.GetKeyDown("x"))
-		{
-			buttonsPressed.AddLast('x');
-		}
-		if (Input.GetKeyDown("y"))
-		{
-			buttonsPressed.AddLast('y');
-		}
+        if (Input.GetKeyDown("a"))
+        {
+            buttonsPressed.AddLast('a');
+        }
+        if (Input.GetKeyDown("b"))
+        {
+            buttonsPressed.AddLast('b');
+        }
+        if (Input.GetKeyDown("x"))
+        {
+            buttonsPressed.AddLast('x');
+        }
+        if (Input.GetKeyDown("y"))
+        {
+            buttonsPressed.AddLast('y');
+        }
 
         while (buttonsPressed.Count > 100)
         {
