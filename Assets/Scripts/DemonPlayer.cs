@@ -6,9 +6,15 @@ using System.Collections.Generic;
 public class DemonPlayer : MonoBehaviour
 {
 
+    //private bool lastUp;
+    // private bool lastDown;
+    // private bool lastLeft;
+    // private bool lastRight;
+    private Dictionary<string, bool> lastDpad = new Dictionary<string, bool>();
+
     public ExplosiveSheep explosiveSheepPrefab;
     public GameObject fireballPrefab;
-	public GameObject cometPrefab;
+    public GameObject cometPrefab;
     public GameObject decoyPrefab;
 
     private PlayerController playerController;
@@ -26,7 +32,7 @@ public class DemonPlayer : MonoBehaviour
     {
         addPressedButton();
 
-        if (isComboPressed("aa")) //Explosive sheep
+        if (isComboPressed("aa")||isComboPressed("udlr")) //Explosive sheep
         {
             GameObject.Instantiate(explosiveSheepPrefab,
                 new Vector3(playerController.gameObject.transform.position.x, 0, playerController.gameObject.transform.position.z) + (playerController.aimDirection) * 3
@@ -34,14 +40,15 @@ public class DemonPlayer : MonoBehaviour
         }
         if (isComboPressed("bb")) //Fireball
         {
-            GameObject fireball = GameObject.Instantiate(fireballPrefab, transform.position, Quaternion.identity) as GameObject;
+            GameObject fireball = GameObject.Instantiate(fireballPrefab, transform.position + new Vector3(0, 1,1), Quaternion.identity) as GameObject;
             fireball.GetComponent<Fireball>().direction = playerController.aimDirection;
         }
-		if (isComboPressed("xx")) //comet
-		{
-			GameObject.Instantiate(cometPrefab, new Vector3(playerController.gameObject.transform.position.x, 20, 
-				playerController.gameObject.transform.position.z), Quaternion.identity);
-		}
+        if (isComboPressed("xx")) //comet
+        {
+            GameObject.Instantiate(cometPrefab,
+                new Vector3(playerController.gameObject.transform.position.x, 10, playerController.gameObject.transform.position.z) + (playerController.aimDirection) * 8
+                , Quaternion.identity);
+        }
         if (isComboPressed("yy")) //Decoy
         {
             GameObject.Instantiate(decoyPrefab,
@@ -68,42 +75,66 @@ public class DemonPlayer : MonoBehaviour
 
     private void addPressedButton()
     {
-        if (Input.GetKeyDown("joystick 2 button 0") || Input.GetButtonDown("DemonA") )
+        if (Input.GetButtonDown("DemonA"))
         {
             buttonsPressed.AddLast('a');
         }
-        if (Input.GetKeyDown("joystick 2 button 1") || Input.GetButtonDown("DemonB"))
+        if ( Input.GetButtonDown("DemonB"))
         {
             buttonsPressed.AddLast('b');
         }
-        if (Input.GetKeyDown("joystick 2 button 2") || Input.GetButtonDown("DemonX"))
+        if (Input.GetButtonDown("DemonX"))
         {
             buttonsPressed.AddLast('x');
         }
-        if (Input.GetKeyDown("joystick 2 button 3") || Input.GetButtonDown("DemonY"))
+        if ( Input.GetButtonDown("DemonY"))
         {
             buttonsPressed.AddLast('y');
         }
-		if (Input.GetKeyDown("a"))
-		{
-			buttonsPressed.AddLast('a');
-		}
-		if (Input.GetKeyDown("b"))
-		{
-			buttonsPressed.AddLast('b');
-		}
-		if (Input.GetKeyDown("x"))
-		{
-			buttonsPressed.AddLast('x');
-		}
-		if (Input.GetKeyDown("y"))
-		{
-			buttonsPressed.AddLast('y');
-		}
+
+        if (GetDpadDown("DemonUp"))
+        {
+            buttonsPressed.AddLast('u');
+        }
+        if (GetDpadDown("DemonDown"))
+        {
+            buttonsPressed.AddLast('d');
+        }
+        if (GetDpadDown("DemonLeft"))
+        {
+            buttonsPressed.AddLast('l');
+        }
+        if (GetDpadDown("DemonRight"))
+        {
+            buttonsPressed.AddLast('r');
+        }
 
         while (buttonsPressed.Count > 100)
         {
             buttonsPressed.RemoveFirst();
         }
+    }
+
+    private bool GetDpadDown(string axis)
+    {
+        bool last = false;
+        if (lastDpad.ContainsKey(axis))
+        {
+            last = lastDpad[axis];
+        }
+
+        if (Input.GetAxis(axis) > 0.5)
+        {
+            lastDpad[axis] = true;
+            if (!last)
+            {
+                return true;
+            }
+        }
+        else
+        {
+            lastDpad[axis] = false;
+        }
+        return false;
     }
 }

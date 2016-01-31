@@ -26,20 +26,29 @@ public class Projectile : MonoBehaviour
         transform.Translate(direction.normalized * speed * Time.deltaTime);
     }
 
+
     void OnTriggerEnter(Collider other)
     {
+      
+        if (other.GetComponent<PlayerController>() != null)
+        {
+            return;
+        }
+        Debug.Log("HIT TRIGGER");
         if (other.GetComponent<Enemy>() != null && other.GetComponent<Rigidbody>() != null)
         {
+            Debug.Log("HIT ENEMY");
             other.GetComponent<Enemy>().Damage(damage);
             other.GetComponent<Rigidbody>().AddForce(direction.normalized * 200);
         }
-        if (other.GetComponent<DestructibleObstacle>() != null)
+        if (other.gameObject.GetComponent<DestructibleObstacle>() != null)
         {
-            other.GetComponent<DestructibleObstacle>().Damage(damage);
+            Debug.Log("HIT OBSTACLE");
+            other.GetComponent<DestructibleObstacle>().Damage(damage * 10);
         }
         if (other.GetComponent<PlayerController>() == null)
         {
-            GameObject.Destroy(this.gameObject);
+            GameObject.Destroy(other.gameObject);
         }
     }
 }

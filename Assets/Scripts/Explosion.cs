@@ -12,7 +12,6 @@ public class Explosion : MonoBehaviour {
 
     void Start()
     {
-        IList<Enemy> hitEnemies = new List<Enemy>();
         Enemy[] enemies = FindObjectsOfType<Enemy>();
         foreach (Enemy enemy in enemies)
         {
