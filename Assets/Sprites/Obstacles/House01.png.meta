@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Sprites/Obstacles/House01.png.meta
 guid: 185295a917234304eaddd41c76d296cf
 timeCreated: 1454233923
+=======
+guid: 98c735358e62b9d4c8b99f80bac7518a
+timeCreated: 1454193727
+>>>>>>> b93029a4801485fda4582f6d37f437a7220c8f5d:Assets/Sprites/Obstacles/House 1.png.meta
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName: {}
