@@ -36,7 +36,7 @@ public class Fireball : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if(other.GetComponent<PlayerController>()!= null)
+        if(other.gameObject.GetComponent<PlayerController>()!= null)
         {
             return;
         }

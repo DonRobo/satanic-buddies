@@ -31,6 +31,15 @@ public class Explosion : MonoBehaviour {
                 player.Damage(damage);
             }
         }
+        DestructibleObstacle[] obstacles = FindObjectsOfType<DestructibleObstacle>();
+        foreach (DestructibleObstacle obstacle in obstacles)
+        {
+            Vector3 dist = (obstacle.transform.position - transform.position);
+            if (dist.sqrMagnitude < range * range)
+            {
+                obstacle.Damage(damage);
+            }
+        }
     }
 
     // Update is called once per frame
