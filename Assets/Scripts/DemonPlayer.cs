@@ -32,18 +32,18 @@ public class DemonPlayer : MonoBehaviour
     {
         addPressedButton();
 
-        if (isComboPressed("aa")) //Explosive sheep
+        if (isComboPressed("uudd")) //Explosive sheep
         {
             GameObject.Instantiate(explosiveSheepPrefab,
                 new Vector3(playerController.gameObject.transform.position.x, 0, playerController.gameObject.transform.position.z) + (playerController.aimDirection) * 3
                 , Quaternion.identity);
         }
-        if (isComboPressed("xyd")) //Fireball
+        if (isComboPressed("xyb")) //Fireball
         {
             GameObject fireball = GameObject.Instantiate(fireballPrefab, transform.position + new Vector3(0, 1,1), Quaternion.identity) as GameObject;
             fireball.GetComponent<Fireball>().direction = playerController.aimDirection;
         }
-        if (isComboPressed("xx")) //comet
+        if (isComboPressed("lrlr")) //comet
         {
             GameObject.Instantiate(cometPrefab,
                 new Vector3(playerController.gameObject.transform.position.x, 10, playerController.gameObject.transform.position.z) + (playerController.aimDirection) * 8
