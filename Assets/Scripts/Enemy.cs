@@ -45,12 +45,8 @@ public class Enemy : MonoBehaviour
         {
             float speedModifier = distance.sqrMagnitude > 100 ? 1.1f : 1f;
             float step = Time.deltaTime * speed * speedModifier;
-            float oldY = transform.position.y;
             Vector3 movement = distance.normalized * step;
             transform.Translate(movement);
-            //  transform.position= Vector3.MoveTowards(transform.position, player.transform.position, step);
-            // transform.position = new Vector3(transform.position.x, oldY, transform.position.z);
-            //this.GetComponent<CharacterController>().Move(new Vector3(0.01f, 0, 0.01f));
         }
         else
         {

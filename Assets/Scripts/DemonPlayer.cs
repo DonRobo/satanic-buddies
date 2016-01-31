@@ -6,6 +6,12 @@ using System.Collections.Generic;
 public class DemonPlayer : MonoBehaviour
 {
 
+    //private bool lastUp;
+    // private bool lastDown;
+    // private bool lastLeft;
+    // private bool lastRight;
+    private Dictionary<string, bool> lastDpad = new Dictionary<string, bool>();
+
     public ExplosiveSheep explosiveSheepPrefab;
     public GameObject fireballPrefab;
     public GameObject cometPrefab;
@@ -26,7 +32,7 @@ public class DemonPlayer : MonoBehaviour
     {
         addPressedButton();
 
-        if (isComboPressed("aa")) //Explosive sheep
+        if (isComboPressed("aa")||isComboPressed("udlr")) //Explosive sheep
         {
             GameObject.Instantiate(explosiveSheepPrefab,
                 new Vector3(playerController.gameObject.transform.position.x, 0, playerController.gameObject.transform.position.z) + (playerController.aimDirection) * 3
@@ -69,42 +75,66 @@ public class DemonPlayer : MonoBehaviour
 
     private void addPressedButton()
     {
-        if (Input.GetKeyDown("joystick 2 button 0") || Input.GetButtonDown("DemonA"))
+        if (Input.GetButtonDown("DemonA"))
         {
             buttonsPressed.AddLast('a');
         }
-        if (Input.GetKeyDown("joystick 2 button 1") || Input.GetButtonDown("DemonB"))
+        if ( Input.GetButtonDown("DemonB"))
         {
             buttonsPressed.AddLast('b');
         }
-        if (Input.GetKeyDown("joystick 2 button 2") || Input.GetButtonDown("DemonX"))
+        if (Input.GetButtonDown("DemonX"))
         {
             buttonsPressed.AddLast('x');
         }
-        if (Input.GetKeyDown("joystick 2 button 3") || Input.GetButtonDown("DemonY"))
+        if ( Input.GetButtonDown("DemonY"))
         {
             buttonsPressed.AddLast('y');
         }
-        if (Input.GetKeyDown("a"))
+
+        if (GetDpadDown("DemonUp"))
         {
-            buttonsPressed.AddLast('a');
+            buttonsPressed.AddLast('u');
         }
-        if (Input.GetKeyDown("b"))
+        if (GetDpadDown("DemonDown"))
         {
-            buttonsPressed.AddLast('b');
+            buttonsPressed.AddLast('d');
         }
-        if (Input.GetKeyDown("x"))
+        if (GetDpadDown("DemonLeft"))
         {
-            buttonsPressed.AddLast('x');
+            buttonsPressed.AddLast('l');
         }
-        if (Input.GetKeyDown("y"))
+        if (GetDpadDown("DemonRight"))
         {
-            buttonsPressed.AddLast('y');
+            buttonsPressed.AddLast('r');
         }
 
         while (buttonsPressed.Count > 100)
         {
             buttonsPressed.RemoveFirst();
         }
+    }
+
+    private bool GetDpadDown(string axis)
+    {
+        bool last = false;
+        if (lastDpad.ContainsKey(axis))
+        {
+            last = lastDpad[axis];
+        }
+
+        if (Input.GetAxis(axis) > 0.5)
+        {
+            lastDpad[axis] = true;
+            if (!last)
+            {
+                return true;
+            }
+        }
+        else
+        {
+            lastDpad[axis] = false;
+        }
+        return false;
     }
 }
