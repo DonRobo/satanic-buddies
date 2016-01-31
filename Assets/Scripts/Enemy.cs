@@ -25,8 +25,8 @@ public class Enemy : MonoBehaviour
         Decoy[] decoys = GameObject.FindObjectsOfType<Decoy>();
         if (decoys.Length > 0)
         {
-            Vector3 closestDecoyDistance=decoys[0].gameObject.transform.position - transform.position;
-            foreach(Decoy decoy in decoys)
+            Vector3 closestDecoyDistance = decoys[0].gameObject.transform.position - transform.position;
+            foreach (Decoy decoy in decoys)
             {
                 if ((decoy.gameObject.transform.position - transform.position).sqrMagnitude < closestDecoyDistance.sqrMagnitude)
                 {
@@ -37,7 +37,8 @@ public class Enemy : MonoBehaviour
             distance = closestDecoyDistance;
         }
 
-        if (distance.sqrMagnitude > 8) { 
+        if (distance.sqrMagnitude > 8)
+        {
             float speedModifier = distance.sqrMagnitude > 100 ? 1.1f : 1f;
             float step = Time.deltaTime * speed * speedModifier;
             float oldY = transform.position.y;
