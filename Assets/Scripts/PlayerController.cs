@@ -91,7 +91,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetButtonDown("PlayerFire"))
         {
-            GameObject proj = GameObject.Instantiate(projectilePrefab, transform.position, Quaternion.identity) as GameObject;
+            GameObject proj = GameObject.Instantiate(projectilePrefab, transform.position+new Vector3(0,1,1), Quaternion.identity) as GameObject;
             proj.GetComponent<Projectile>().direction = aimDirection;
         }
     }

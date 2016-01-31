@@ -29,26 +29,26 @@ public class Projectile : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-      
-        if (other.GetComponent<PlayerController>() != null)
+        if (other.gameObject.GetComponent<PlayerController>() != null)
         {
             return;
         }
-        Debug.Log("HIT TRIGGER");
-        if (other.GetComponent<Enemy>() != null && other.GetComponent<Rigidbody>() != null)
+        if (other.gameObject.GetComponent<Enemy>() != null && other.gameObject.GetComponent<Rigidbody>() != null)
         {
-            Debug.Log("HIT ENEMY");
             other.GetComponent<Enemy>().Damage(damage);
             other.GetComponent<Rigidbody>().AddForce(direction.normalized * 200);
         }
         if (other.gameObject.GetComponent<DestructibleObstacle>() != null)
         {
-            Debug.Log("HIT OBSTACLE");
-            other.GetComponent<DestructibleObstacle>().Damage(damage * 10);
+            other.GetComponent<DestructibleObstacle>().Damage(damage * 5);
         }
-        if (other.GetComponent<PlayerController>() == null)
+        if (other.gameObject.GetComponent<PlayerController>() == null)
         {
-            GameObject.Destroy(other.gameObject);
+            GameObject.Destroy(this.gameObject);
+        }
+        else
+        {
+            Debug.Log(other.gameObject.GetComponent<PlayerController>());
         }
     }
 }
