@@ -32,7 +32,7 @@ public class DemonPlayer : MonoBehaviour
     {
         addPressedButton();
 
-        if (isComboPressed("aa")) //Explosive sheep
+        if (isComboPressed("aa")||isComboPressed("udlr")) //Explosive sheep
         {
             GameObject.Instantiate(explosiveSheepPrefab,
                 new Vector3(playerController.gameObject.transform.position.x, 0, playerController.gameObject.transform.position.z) + (playerController.aimDirection) * 3
@@ -75,19 +75,19 @@ public class DemonPlayer : MonoBehaviour
 
     private void addPressedButton()
     {
-        if (Input.GetKeyDown("joystick 2 button 0") || Input.GetButtonDown("DemonA"))
+        if (Input.GetButtonDown("DemonA"))
         {
             buttonsPressed.AddLast('a');
         }
-        if (Input.GetKeyDown("joystick 2 button 1") || Input.GetButtonDown("DemonB"))
+        if ( Input.GetButtonDown("DemonB"))
         {
             buttonsPressed.AddLast('b');
         }
-        if (Input.GetKeyDown("joystick 2 button 2") || Input.GetButtonDown("DemonX"))
+        if (Input.GetButtonDown("DemonX"))
         {
             buttonsPressed.AddLast('x');
         }
-        if (Input.GetKeyDown("joystick 2 button 3") || Input.GetButtonDown("DemonY"))
+        if ( Input.GetButtonDown("DemonY"))
         {
             buttonsPressed.AddLast('y');
         }
@@ -107,24 +107,6 @@ public class DemonPlayer : MonoBehaviour
         if (GetDpadDown("DemonRight"))
         {
             buttonsPressed.AddLast('r');
-        }
-
-
-        if (Input.GetKeyDown("a"))
-        {
-            buttonsPressed.AddLast('a');
-        }
-        if (Input.GetKeyDown("b"))
-        {
-            buttonsPressed.AddLast('b');
-        }
-        if (Input.GetKeyDown("x"))
-        {
-            buttonsPressed.AddLast('x');
-        }
-        if (Input.GetKeyDown("y"))
-        {
-            buttonsPressed.AddLast('y');
         }
 
         while (buttonsPressed.Count > 100)
