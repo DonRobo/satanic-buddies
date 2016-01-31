@@ -82,7 +82,7 @@ public class PlayerController : MonoBehaviour
             spriteView.transform.localScale = new Vector3(-spriteView.transform.localScale.x, spriteView.transform.localScale.y, spriteView.transform.localScale.z);
         }
 
-        characterController.Move(moveDirection);
+        characterController.Move(moveDirection * Time.timeScale);
 
         if (Mathf.Abs(Input.GetAxis("Horizontal")) > EPSILON || Mathf.Abs(Input.GetAxis("Vertical")) > EPSILON)
         {
@@ -91,7 +91,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetButtonDown("PlayerFire"))
         {
-            GameObject proj = GameObject.Instantiate(projectilePrefab, transform.position+new Vector3(0,1,1), Quaternion.identity) as GameObject;
+            GameObject proj = GameObject.Instantiate(projectilePrefab, transform.position + new Vector3(0, 1, 1), Quaternion.identity) as GameObject;
             proj.GetComponent<Projectile>().direction = aimDirection;
         }
     }
