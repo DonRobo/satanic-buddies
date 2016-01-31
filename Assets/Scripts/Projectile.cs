@@ -9,16 +9,32 @@ public class Projectile : MonoBehaviour
     public float speed = 30;
     public Vector3 direction;
 
+    private Transform sprite;
+
+    private Animator animator;
+
+
     // Use this for initialization
     void Start()
     {
         direction = direction.normalized * speed;
+        sprite = transform.FindChild("Sprite");
+
+        animator = GetComponentInChildren<Animator>();
+        animator.speed = 1;
+        if (direction.x < 0)
+        {
+            sprite.transform.localScale = new Vector3(-1.0f, 1.0f, 1.0f);
+        }
+
+        //sprite.transform.rotation = (Quaternion.FromToRotation(Vector3.right, direction));
     }
 
     // Update is called once per frame
     void Update()
     {
         age += Time.deltaTime;
+
         if (age > lifetime)
         {
             Destroy(this.gameObject);
@@ -29,7 +45,7 @@ public class Projectile : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-      
+
         if (other.GetComponent<PlayerController>() != null)
         {
             return;
