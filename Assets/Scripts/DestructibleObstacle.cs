@@ -6,7 +6,7 @@ public class DestructibleObstacle : MonoBehaviour
 
     public GameObject explosionPrefab;
     private GameObject player;
-    private float health = 100;
+    public float health = 100;
 
     // Use this for initialization
     void Start()
