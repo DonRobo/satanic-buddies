@@ -62,9 +62,5 @@ public class Projectile : MonoBehaviour
         {
             GameObject.Destroy(this.gameObject);
         }
-        else
-        {
-            Debug.Log(other.gameObject.GetComponent<PlayerController>());
-        }
     }
 }

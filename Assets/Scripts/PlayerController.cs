@@ -113,7 +113,7 @@ public class PlayerController : MonoBehaviour
         healthbar.rectTransform.anchorMax = new Vector2(health / maxHealth, 1);
         if (health <= 0)
         {
-            UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+           // UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
         }
     }
 }
