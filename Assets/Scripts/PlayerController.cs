@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     private float health;
     public float walkSpeed = 300.0f;
 
-    public float animationSpeedFactor = 30.0f;
+    public float animationSpeedFactor = 0.1f;
 
     public float zMovementAnimationSpeedFactor = 0.5f;
 

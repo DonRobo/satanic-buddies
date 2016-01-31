@@ -3,7 +3,6 @@ using System.Collections;
 
 public class Projectile : MonoBehaviour
 {
-
     public float lifetime = 2;
     private float age = 0;
     public float damage = 10;
@@ -33,6 +32,10 @@ public class Projectile : MonoBehaviour
         {
             other.GetComponent<Enemy>().Damage(damage);
             other.GetComponent<Rigidbody>().AddForce(direction.normalized * 200);
+        }
+        if (other.GetComponent<DestructibleObstacle>() != null)
+        {
+            other.GetComponent<DestructibleObstacle>().Damage(damage);
         }
         if (other.GetComponent<PlayerController>() == null)
         {
